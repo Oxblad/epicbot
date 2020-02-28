@@ -32,7 +32,7 @@ def welcome(message):
 def elsetext(message):
     if not message.chat.type == "private":
         rand = random.randint(0, 100)
-        if rand <= 4:
+        if rand <= 5:
             bot.reply_to(message, random.choice(text))
         else:
             pass
