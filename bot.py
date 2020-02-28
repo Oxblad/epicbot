@@ -14,12 +14,10 @@ text = []
 for line in lines:
     text.append(line)
 
-print(text)
-
 
 @bot.message_handler(commands=['start'])
 def welcome(message):
-    if message.chat.type == 'group':
+    if message.chat.type == 'private':
         markup = types.InlineKeyboardMarkup(row_width=2)
         item = types.InlineKeyboardButton("Поддержать", url='https://qiwi.me/viannedi')
 
@@ -32,9 +30,8 @@ def welcome(message):
 
 @bot.message_handler(content_types=['text'])
 def elsetext(message):
-    if True:
+    if not message.chat.type == "private":
         rand = random.randint(0, 100)
-        print(rand)
         if rand <= 4:
             bot.reply_to(message, random.choice(text))
         else:
