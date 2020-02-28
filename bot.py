@@ -19,7 +19,7 @@ print(text)
 
 @bot.message_handler(commands=['start'])
 def welcome(message):
-    if message.chat.type == 'private':
+    if message.chat.type == 'group':
         markup = types.InlineKeyboardMarkup(row_width=2)
         item = types.InlineKeyboardButton("Поддержать", url='https://qiwi.me/viannedi')
 
