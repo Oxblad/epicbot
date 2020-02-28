@@ -32,7 +32,7 @@ def welcome(message):
 
 @bot.message_handler(content_types=['text'])
 def elsetext(message):
-    if message.chat.type == "group":
+    if True:
         rand = random.randint(0, 100)
         print(rand)
         if rand <= 4:
