@@ -3,7 +3,7 @@ import random
 from telebot import types
 import os
 
-token = '1024737244:AAFJBn5vpyYegoMIX1XfgER6EPUu6u6eEKk'
+token = os.environ('BOT_TOKEN')
 bot = telebot.TeleBot(token)
 fout = open('message.txt', 'rt', encoding='utf-8')
 chat_ids_file = 'chat_id'
@@ -55,7 +55,7 @@ def else_text(message):
         else:
             pass
     else:
-        delete_links(message)
+
         if message.text == 'Мои функции💜':
             bot.send_message(message.chat.id,
                              'Что я умею?❤\n 📞☎ Я могу отвечать на сообщения в группе любым пользователям \n⭐ Я '
