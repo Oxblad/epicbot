@@ -3,7 +3,7 @@ import random
 from telebot import types
 import os
 
-token = os.environ.get('BOT_TOKEN')
+token = '964769711:AAHv-KzX8JM1zuf9gSA4KgCAl0ICZKvm7LI'
 bot = telebot.TeleBot(token)
 fout = open('message.txt', 'rt', encoding='utf-8')
 chat_ids_file = 'chat_id'
@@ -47,8 +47,12 @@ def welcome(message):
 @bot.message_handler(content_types=['text'])
 def else_text(message):
     if not message.chat.type == "private":
-        delete_links(message)
-        save_chat_id(message.chat.id)
+        try:
+            delete_links(message)
+        except:
+            pass
+
+        save_chat_id(message)
         rand = random.randint(0, 100)
         if rand <= 4:
             bot.reply_to(message, random.choice(text))
