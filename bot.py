@@ -3,7 +3,7 @@ import random
 from telebot import types
 import os
 
-token = os.environ.get('BOT_TOKEN')
+token = '964769711:AAHv-KzX8JM1zuf9gSA4KgCAl0ICZKvm7LI'
 types = telebot.types
 bot = telebot.TeleBot(token)
 fout = open('message.txt', 'rt', encoding='utf-8')
