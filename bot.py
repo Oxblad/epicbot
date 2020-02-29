@@ -6,7 +6,7 @@ import os
 token = os.environ.get('BOT_TOKEN')
 bot = telebot.TeleBot(token)
 fout = open('message.txt', 'rt', encoding='utf-8')
-chat_ids_file = 'chat_id.txt'
+chat_ids_file = 'chat_id'
 
 lines = fout.readlines()
 fout.close()
@@ -31,15 +31,6 @@ def save_chat_id(chat_id):
     return
 
 
-@bot.message_handler(func=lambda message: message.entities is not None and message.chat.id == message.chat.id)
-def delete_links(message):
-    for entity in message.entities:
-        if entity.type in ["url", "text_link"]:
-            bot.delete_message(message.chat.id, message.message_id)
-        else:
-            return
-
-
 @bot.message_handler(commands=['start'])
 def welcome(message):
     if message.chat.type == 'private':
@@ -56,6 +47,8 @@ def welcome(message):
 @bot.message_handler(content_types=['text'])
 def else_text(message):
     if not message.chat.type == "private":
+        delete_links(message)
+        save_chat_id(message.chat.id)
         rand = random.randint(0, 100)
         if rand <= 4:
             bot.reply_to(message, random.choice(text))
@@ -63,8 +56,9 @@ def else_text(message):
             pass
     else:
         if message.text == 'Мои функции💜':
-            bot.send_message(message.chat.id, 'Что я умею?❤\n 📞☎ Я могу отвечать на сообщения в группе любым '
-                                              'пользователям \n⭐ Я администрирую чат от спама и другой фикни :З')
+            bot.send_message(message.chat.id,
+                             'Что я умею?❤\n 📞☎ Я могу отвечать на сообщения в группе любым пользователям \n⭐ Я '
+                             'администрирую чат от спама и другой фикни :З')
         elif message.text == 'Поддержать':
             markup = types.InlineKeyboardMarkup(row_width=2)
             item = types.InlineKeyboardButton("Поддержать", url='https://qiwi.me/viannedi')
@@ -72,6 +66,15 @@ def else_text(message):
             markup.add(item)
             bot.send_message(message.chat.id,
                              "Спасибо что решили поддержать меня❤", parse_mode='html', reply_markup=markup)
+
+
+@bot.message_handler(func=lambda message: message.entities is not None and message.chat.id == message.chat.id)
+def delete_links(message):
+    for entity in message.entities:
+        if entity.type in ["url", "text_link"]:
+            bot.delete_message(message.chat.id, message.message_id)
+        else:
+            return
 
 
 if __name__ == "__main__":
