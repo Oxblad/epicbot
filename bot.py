@@ -3,7 +3,7 @@ import random
 from telebot import types
 import os
 
-token = os.environ('BOT_TOKEN')
+token = os.environ.get('BOT_TOKEN')
 bot = telebot.TeleBot(token)
 fout = open('message.txt', 'rt', encoding='utf-8')
 chat_ids_file = 'chat_id'
