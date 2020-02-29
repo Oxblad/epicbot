@@ -4,6 +4,7 @@ from telebot import types
 import os
 
 token = os.environ.get('BOT_TOKEN')
+types = telebot.types
 bot = telebot.TeleBot(token)
 fout = open('message.txt', 'rt', encoding='utf-8')
 chat_ids_file = 'chat_id'
