@@ -50,8 +50,8 @@ def else_text(message):
     if not message.chat.type == "private":
 
         try:
-            chat_id = message.chat.id
-            for key in bot.getChatAdministrators(chat_id):
+            chatid = message.chat.id
+            for key in bot.getChatAdministrators(chatid):
                 if key == message.chat.id:
                     delete_links(message)
                     break
