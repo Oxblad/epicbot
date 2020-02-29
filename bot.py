@@ -50,12 +50,11 @@ def else_text(message):
     if not message.chat.type == "private":
 
         try:
-
-            # chatid = message.chat.id
-            # for key in bot.getChatAdministrators(chatid):
-            #     if key == message.chat.id:
-            delete_links(message)
-                    # break
+            chatid = message.chat.id
+            for key in bot.getChatAdministrators(chatid):
+                if key == message.chat.id:
+                    delete_links(message)
+                    break
         except:
             pass
 
@@ -81,7 +80,7 @@ def else_text(message):
 
 
 @bot.message_handler(func=lambda message: message.entities is not None and message.chat.id == message.chat.id)
-def delete_links(message, chat_id):
+def delete_links(message):
 
     for entity in message.entities:
         if entity.type in ["url", "text_link"]:
