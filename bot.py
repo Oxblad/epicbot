@@ -46,9 +46,8 @@ def welcome(message):
 
 @bot.message_handler(content_types=['text'])
 def else_text(message):
-
     if not message.chat.type == "private":
-
+        save_chat_id(message)
         try:
             chat_id = message.chat.id
             for key in bot.getChatAdministrators(chat_id):
@@ -57,8 +56,6 @@ def else_text(message):
                     break
         except:
             pass
-
-        save_chat_id(message)
         rand = random.randint(0, 100)
         if rand <= 4:
             bot.reply_to(message, random.choice(text))
@@ -80,8 +77,7 @@ def else_text(message):
 
 
 @bot.message_handler(func=lambda message: message.entities is not None and message.chat.id == message.chat.id)
-def delete_links(message, chat_id):
-
+def delete_links(message):
     for entity in message.entities:
         if entity.type in ["url", "text_link"]:
             bot.delete_message(message.chat.id, message.message_id)
