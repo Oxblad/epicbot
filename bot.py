@@ -3,7 +3,7 @@ import random
 from telebot import types
 import os
 
-token = os.environ.get('token')
+token = os.environ.get('BOT_TOKEN')
 bot = telebot.TeleBot(token)
 fout = open('message.txt', 'rt', encoding='utf-8')
 chat_ids_file = 'chat_id'
@@ -50,11 +50,12 @@ def else_text(message):
     if not message.chat.type == "private":
 
         try:
-            chatid = message.chat.id
-            for key in bot.getChatAdministrators(chatid):
-                if key == message.chat.id:
-                    delete_links(message)
-                    break
+
+            # chatid = message.chat.id
+            # for key in bot.getChatAdministrators(chatid):
+            #     if key == message.chat.id:
+            delete_links(message)
+                    # break
         except:
             pass
 
