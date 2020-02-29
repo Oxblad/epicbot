@@ -3,7 +3,7 @@ import random
 from telebot import types
 import os
 
-token = '964769711:AAHv-KzX8JM1zuf9gSA4KgCAl0ICZKvm7LI'
+token = os.environ.get('BOT_TOKEN')
 bot = telebot.TeleBot(token)
 fout = open('message.txt', 'rt', encoding='utf-8')
 chat_ids_file = 'chat_id'
@@ -46,9 +46,15 @@ def welcome(message):
 
 @bot.message_handler(content_types=['text'])
 def else_text(message):
+
     if not message.chat.type == "private":
+
         try:
-            delete_links(message)
+            chat_id = message.chat.id
+            for key in bot.getChatAdministrators(chat_id):
+                if key == message.chat.id:
+                    delete_links(message)
+                    break
         except:
             pass
 
@@ -74,7 +80,8 @@ def else_text(message):
 
 
 @bot.message_handler(func=lambda message: message.entities is not None and message.chat.id == message.chat.id)
-def delete_links(message):
+def delete_links(message, chat_id):
+
     for entity in message.entities:
         if entity.type in ["url", "text_link"]:
             bot.delete_message(message.chat.id, message.message_id)
